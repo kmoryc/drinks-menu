@@ -46,7 +46,7 @@
     const body = JSON.stringify({ out: [...outIds].sort() }, null, 2) + "\n";
     for (let attempt = 0; attempt < 2; attempt++) {
       const cur = await fetch(`${API}?ref=${BRANCH}`, { headers: headers(token), cache: "no-store" });
-      if (!cur.ok && cur.status !== 404) throw new Error("HTTP " + cur.status);
+      if (!cur.ok && cur.status !== 404) throw Object.assign(new Error("HTTP " + cur.status), { status: cur.status });
       const sha = cur.ok ? (await cur.json()).sha : undefined;
       const r = await fetch(API, {
         method: "PUT",
@@ -57,18 +57,29 @@
         })
       });
       if (r.ok) return;
-      if (r.status !== 409) throw new Error("HTTP " + r.status);
+      if (r.status !== 409) throw Object.assign(new Error("HTTP " + r.status), { status: r.status });
       // 409: someone else saved in between; retry with the new version.
     }
     throw new Error("conflict");
   }
 
-  // Checks that the token can write to the repository.
+  // Checks that the token can really write stock.json without changing it:
+  // a write with a deliberately wrong version is rejected with 409 only
+  // when the token has write access (401/403/404 otherwise).
   async function check(token) {
-    const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers: headers(token), cache: "no-store" });
-    if (!r.ok) return false;
-    const repo = await r.json();
-    return !!(repo.permissions && repo.permissions.push);
+    try {
+      const r = await fetch(API, {
+        method: "PUT",
+        headers: { ...headers(token), "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: "token check", content: toBase64("{}\n"), branch: BRANCH,
+          sha: "0000000000000000000000000000000000000000"
+        })
+      });
+      return r.status === 409;
+    } catch (e) {
+      return false;
+    }
   }
 
   function getToken() { return localStorage.getItem(TOKEN_KEY) || ""; }

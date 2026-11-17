@@ -16,7 +16,9 @@
       hidden: "Hidden from menu",
       saving: "Saving…",
       saved: "Saved. Guests see the change on their next refresh.",
-      saveFailed: "Could not save. Check the connection or the token.",
+      saveFailed: "Could not save. Check the internet connection.",
+      saveNoPerm: "Could not save: the token is not allowed to change the repository. Create one with \"Contents: Read and write\" for drinks-menu.",
+      saveBadToken: "Could not save: the token is invalid or expired. Add a new one below.",
       loadFailed: "Could not load the current stock.",
       needToken: "Add a GitHub token below to change stock.",
       settings: "⚙ Stock settings",
@@ -27,7 +29,7 @@
       tokenRemove: "Remove",
       tokenChecking: "Checking token…",
       tokenOk: "Token works. You can change stock now.",
-      tokenBad: "This token cannot write to the drinks-menu repository.",
+      tokenBad: "This token cannot change the drinks-menu repository. Check: only drinks-menu selected and \"Contents: Read and write\".",
       tokenNone: "No token saved on this device.",
       tokenSet: "A token is saved on this device.",
       empty: "No drink matches your search.",
@@ -51,7 +53,9 @@
       hidden: "Ukryte w menu",
       saving: "Zapisywanie…",
       saved: "Zapisano. Goście zobaczą zmianę po odświeżeniu.",
-      saveFailed: "Nie udało się zapisać. Sprawdź połączenie lub token.",
+      saveFailed: "Nie udało się zapisać. Sprawdź połączenie z internetem.",
+      saveNoPerm: "Nie udało się zapisać: token nie ma uprawnień do zmiany repozytorium. Utwórz token z \"Contents: Read and write\" dla drinks-menu.",
+      saveBadToken: "Nie udało się zapisać: token jest nieprawidłowy lub wygasł. Dodaj nowy poniżej.",
       loadFailed: "Nie udało się wczytać aktualnej dostępności.",
       needToken: "Dodaj poniżej token GitHub, aby zmieniać dostępność.",
       settings: "⚙ Ustawienia dostępności",
@@ -62,7 +66,7 @@
       tokenRemove: "Usuń",
       tokenChecking: "Sprawdzanie tokenu…",
       tokenOk: "Token działa. Możesz teraz zmieniać dostępność.",
-      tokenBad: "Ten token nie może zapisywać w repozytorium drinks-menu.",
+      tokenBad: "Ten token nie może zmieniać repozytorium drinks-menu. Sprawdź: wybrane tylko drinks-menu i \"Contents: Read and write\".",
       tokenNone: "Na tym urządzeniu nie ma zapisanego tokenu.",
       tokenSet: "Na tym urządzeniu jest zapisany token.",
       empty: "Żaden napój nie pasuje do wyszukiwania.",
@@ -275,8 +279,10 @@
     saveQueue = saveQueue
       .then(() => Stock.save(state.out, msg))
       .then(() => { state.sync = "saved"; render(); })
-      .catch(async () => {
-        state.sync = "saveFailed";
+      .catch(async (err) => {
+        const st = err && err.status;
+        state.sync = st === 401 ? "saveBadToken" : (st === 403 || st === 404) ? "saveNoPerm" : "saveFailed";
+        if (st >= 401 && st <= 404) document.getElementById("settings").open = true;
         const fresh = await Stock.load();
         if (fresh) state.out = fresh;
         render();
