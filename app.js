@@ -25,8 +25,11 @@
   const state = {
     lang: localStorage.getItem("lang") ||
       ((navigator.language || "en").toLowerCase().startsWith("pl") ? "pl" : "en"),
-    filter: "all"
+    filter: "all",
+    out: new Set()
   };
+
+  const isOut = (d) => d.available === false || state.out.has(d.id);
 
   const menu = document.getElementById("menu");
 
@@ -57,7 +60,7 @@
       .filter(d => state.filter === "all" || d.category === state.filter)
       // available drinks first, keep original order otherwise
       .map((d, i) => ({ d, i }))
-      .sort((a, b) => (a.d.available === false) - (b.d.available === false) || a.i - b.i)
+      .sort((a, b) => isOut(a.d) - isOut(b.d) || a.i - b.i)
       .map(x => x.d);
 
     menu.replaceChildren();
@@ -67,14 +70,14 @@
     }
 
     for (const d of drinks) {
-      const card = el("article", "card" + (d.available === false ? " out" : ""));
+      const card = el("article", "card" + (isOut(d) ? " out" : ""));
       const img = el("img");
       img.src = d.image;
       img.alt = d.name[state.lang] || d.name.en;
       img.loading = "lazy";
       const fig = el("div", "photo");
       fig.append(img);
-      if (d.available === false) fig.append(el("span", "badge", t.out));
+      if (isOut(d)) fig.append(el("span", "badge", t.out));
 
       const body = el("div", "body");
       const h = el("h2", null, d.name[state.lang] || d.name.en);
@@ -95,5 +98,15 @@
   document.querySelectorAll("[data-filter]").forEach(b =>
     b.addEventListener("click", () => { state.filter = b.dataset.filter; render(); }));
 
+  async function refreshStock() {
+    const out = window.Stock && await window.Stock.load();
+    if (out) { state.out = out; render(); }
+  }
+  // Pick up changes made on the bartender page when a guest comes back to the tab.
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") refreshStock();
+  });
+
   render();
+  refreshStock();
 })();

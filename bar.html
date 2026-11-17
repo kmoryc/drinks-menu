@@ -28,11 +28,25 @@
       </div>
     </div>
     <p id="wake" class="wake" hidden></p>
+    <p id="sync" class="sync" role="status" hidden></p>
   </header>
 
   <main id="recipes" class="recipes" aria-live="polite"></main>
 
+  <details id="settings" class="settings">
+    <summary id="settings-title"></summary>
+    <p id="token-help"></p>
+    <p><a id="token-link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"></a></p>
+    <div class="token-row">
+      <input id="token" type="password" autocomplete="off" spellcheck="false">
+      <button type="button" id="token-save"></button>
+      <button type="button" id="token-remove"></button>
+    </div>
+    <p id="token-status" class="muted"></p>
+  </details>
+
   <script src="drinks.js"></script>
+  <script src="stock.js"></script>
   <script src="bar.js"></script>
 </body>
 </html>

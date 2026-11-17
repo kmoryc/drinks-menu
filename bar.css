@@ -163,3 +163,91 @@
 .steps li::marker { color: var(--accent); font-weight: 700; }
 
 .muted { color: var(--muted); }
+
+/* In stock / out of stock switch */
+.stock-switch {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px 4px 4px 4px;
+  border: 0;
+  background: none;
+  color: var(--soft);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.stock-switch .knob {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--soft);
+  transition: background 0.2s;
+}
+
+.stock-switch .knob::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 21px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.2s;
+}
+
+.stock-switch.off { color: var(--muted); }
+.stock-switch.off .knob { background: #4a3a2c; }
+.stock-switch.off .knob::after { left: 3px; }
+.stock-switch:disabled { opacity: 0.4; cursor: default; }
+.stock-switch .label { width: 4.5em; text-align: left; line-height: 1.1; }
+
+.drink.is-out .thumb { filter: grayscale(1); opacity: 0.5; }
+.drink.is-out .name { color: var(--muted); }
+
+.sync {
+  margin: 8px auto 0;
+  max-width: 700px;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.settings {
+  max-width: 700px;
+  margin: 0 auto 32px;
+  padding: 0 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.settings summary { cursor: pointer; padding: 8px 0; color: var(--text); }
+.settings a { color: var(--accent); }
+
+.token-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.token-row input {
+  flex: 1 1 200px;
+  font: inherit;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #4a3a2c;
+  background: var(--bg2);
+  color: var(--text);
+}
+
+.token-row button {
+  font: inherit;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #4a3a2c;
+  background: var(--bg2);
+  color: var(--text);
+  cursor: pointer;
+}
+
+#token-save { background: var(--accent); border-color: var(--accent); color: #1b130c; font-weight: 600; }

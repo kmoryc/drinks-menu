@@ -1,7 +1,8 @@
 // The drinks list. Edit this file to add, remove, or change drinks.
 //   category:  "alcoholic" or "non-alcoholic"
 //   image:     path to a file in images/ (photo .jpg/.png/.webp or .svg)
-//   available: false shows the drink as "out of stock"
+//   available: false always shows the drink as "out of stock". For day-to-day
+//              changes use the switch on bar.html, which saves to stock.json.
 //   hidden:    true removes the drink from the guest menu (still listed on bar.html)
 //   recipe:    shown only on the bartender page (bar.html)
 //     ingredients: amount is per one serving and is multiplied by the servings

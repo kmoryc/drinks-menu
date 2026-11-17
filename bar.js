@@ -12,7 +12,24 @@
       alcoholic: "Alcoholic",
       "non-alcoholic": "Non-alcoholic",
       out: "Out of stock",
+      inStock: "In stock",
       hidden: "Hidden from menu",
+      saving: "Saving…",
+      saved: "Saved. Guests see the change on their next refresh.",
+      saveFailed: "Could not save. Check the connection or the token.",
+      loadFailed: "Could not load the current stock.",
+      needToken: "Add a GitHub token below to change stock.",
+      settings: "⚙ Stock settings",
+      tokenHelp: "Changing stock saves to the GitHub repository. Create a fine-grained token once: repository access \"Only select repositories\" → drinks-menu, permission \"Contents: Read and write\". Paste it here; it stays only in this browser.",
+      tokenLink: "Create a token on GitHub",
+      tokenPlaceholder: "github_pat_…",
+      tokenSave: "Save token",
+      tokenRemove: "Remove",
+      tokenChecking: "Checking token…",
+      tokenOk: "Token works. You can change stock now.",
+      tokenBad: "This token cannot write to the drinks-menu repository.",
+      tokenNone: "No token saved on this device.",
+      tokenSet: "A token is saved on this device.",
       empty: "No drink matches your search.",
       noRecipe: "No recipe yet.",
       wake: "Screen stays on while this page is open",
@@ -30,7 +47,24 @@
       alcoholic: "Alkoholowe",
       "non-alcoholic": "Bezalkoholowe",
       out: "Chwilowo brak",
+      inStock: "Dostępne",
       hidden: "Ukryte w menu",
+      saving: "Zapisywanie…",
+      saved: "Zapisano. Goście zobaczą zmianę po odświeżeniu.",
+      saveFailed: "Nie udało się zapisać. Sprawdź połączenie lub token.",
+      loadFailed: "Nie udało się wczytać aktualnej dostępności.",
+      needToken: "Dodaj poniżej token GitHub, aby zmieniać dostępność.",
+      settings: "⚙ Ustawienia dostępności",
+      tokenHelp: "Zmiany dostępności zapisują się w repozytorium GitHub. Utwórz raz token typu fine-grained: dostęp do repozytorium \"Only select repositories\" → drinks-menu, uprawnienie \"Contents: Read and write\". Wklej go tutaj; zostaje tylko w tej przeglądarce.",
+      tokenLink: "Utwórz token na GitHubie",
+      tokenPlaceholder: "github_pat_…",
+      tokenSave: "Zapisz token",
+      tokenRemove: "Usuń",
+      tokenChecking: "Sprawdzanie tokenu…",
+      tokenOk: "Token działa. Możesz teraz zmieniać dostępność.",
+      tokenBad: "Ten token nie może zapisywać w repozytorium drinks-menu.",
+      tokenNone: "Na tym urządzeniu nie ma zapisanego tokenu.",
+      tokenSet: "Na tym urządzeniu jest zapisany token.",
       empty: "Żaden napój nie pasuje do wyszukiwania.",
       noRecipe: "Brak przepisu.",
       wake: "Ekran nie wygaśnie, dopóki ta strona jest otwarta",
@@ -44,8 +78,13 @@
       ((navigator.language || "en").toLowerCase().startsWith("pl") ? "pl" : "en"),
     query: "",
     servings: 1,
-    open: new Set()
+    open: new Set(),
+    out: new Set(),
+    sync: "",
+    tokenMsg: ""
   };
+
+  const isOut = (d) => d.available === false || state.out.has(d.id);
 
   const list = document.getElementById("recipes");
   const search = document.getElementById("search");
@@ -130,6 +169,17 @@
     document.getElementById("more").disabled = state.servings >= MAX_SERVINGS;
     document.getElementById("wake").textContent = "☀ " + t.wake;
     search.placeholder = t.search;
+    const sync = document.getElementById("sync");
+    sync.textContent = state.sync ? t[state.sync] : "";
+    sync.hidden = !state.sync;
+    document.getElementById("settings-title").textContent = t.settings;
+    document.getElementById("token-help").textContent = t.tokenHelp;
+    document.getElementById("token-link").textContent = t.tokenLink;
+    document.getElementById("token").placeholder = t.tokenPlaceholder;
+    document.getElementById("token-save").textContent = t.tokenSave;
+    document.getElementById("token-remove").textContent = t.tokenRemove;
+    document.getElementById("token-status").textContent =
+      t[state.tokenMsg || (Stock.getToken() ? "tokenSet" : "tokenNone")];
     document.querySelectorAll("[data-lang]").forEach(b =>
       b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
 
@@ -155,10 +205,22 @@
       head.append(el("span", "name", tr(d.name)));
       const meta = el("div", "meta");
       meta.append(el("span", "tag " + d.category, t[d.category]));
-      if (d.available === false) meta.append(el("span", "status", t.out));
+      const out = isOut(d);
+      const sw = el("button", "stock-switch" + (out ? " off" : ""));
+      sw.type = "button";
+      sw.setAttribute("role", "switch");
+      sw.setAttribute("aria-checked", String(!out));
+      sw.disabled = d.available === false;
+      sw.append(el("span", "knob"), el("span", "label", out ? t.out : t.inStock));
+      sw.addEventListener("click", (e) => {
+        e.preventDefault(); // don't open/close the recipe
+        e.stopPropagation();
+        toggleStock(d);
+      });
       if (d.hidden) meta.append(el("span", "status", t.hidden));
       head.append(meta);
-      sum.append(img, head, el("span", "chev"));
+      sum.append(img, head, sw, el("span", "chev"));
+      if (out) item.classList.add("is-out");
 
       item.append(sum, renderRecipe(d, t));
       list.append(item);
@@ -195,6 +257,63 @@
     state.servings = Math.min(MAX_SERVINGS, state.servings + 1); render();
   });
 
+  // Stock changes are saved one after another so quick taps don't overwrite each other.
+  let saveQueue = Promise.resolve();
+  function toggleStock(d) {
+    if (!Stock.getToken()) {
+      state.sync = "needToken";
+      document.getElementById("settings").open = true;
+      render();
+      document.getElementById("settings").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    const nowOut = !state.out.has(d.id);
+    nowOut ? state.out.add(d.id) : state.out.delete(d.id);
+    state.sync = "saving";
+    render();
+    const msg = `${d.name.en}: ${nowOut ? "out of stock" : "back in stock"}`;
+    saveQueue = saveQueue
+      .then(() => Stock.save(state.out, msg))
+      .then(() => { state.sync = "saved"; render(); })
+      .catch(async () => {
+        state.sync = "saveFailed";
+        const fresh = await Stock.load();
+        if (fresh) state.out = fresh;
+        render();
+      });
+  }
+
+  async function refreshStock() {
+    const out = await Stock.load();
+    if (out) state.out = out; else state.sync = "loadFailed";
+    render();
+  }
+
+  const tokenInput = document.getElementById("token");
+  document.getElementById("token-save").addEventListener("click", async () => {
+    const tok = tokenInput.value.trim();
+    if (!tok) return;
+    state.tokenMsg = "tokenChecking"; render();
+    if (await Stock.check(tok)) {
+      Stock.setToken(tok);
+      tokenInput.value = "";
+      state.tokenMsg = "tokenOk";
+      if (state.sync === "needToken") state.sync = "";
+    } else {
+      state.tokenMsg = "tokenBad";
+    }
+    render();
+  });
+  document.getElementById("token-remove").addEventListener("click", () => {
+    Stock.setToken("");
+    state.tokenMsg = "";
+    render();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") refreshStock();
+  });
+
   render();
+  refreshStock();
   keepAwake();
 })();
