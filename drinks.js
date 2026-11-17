@@ -2,7 +2,8 @@
 //   category:  "alcoholic" or "non-alcoholic"
 //   image:     path to a file in images/ (photo .jpg/.png/.webp or .svg)
 //   available: false always shows the drink as "out of stock". For day-to-day
-//              changes use the switch on bar.html, which saves to stock.json.
+//              changes use the switch on bar.html, which saves to the
+//              kmoryc/drinks-stock repository.
 //   hidden:    true removes the drink from the guest menu (still listed on bar.html)
 //   recipe:    shown only on the bartender page (bar.html)
 //     ingredients: amount is per one serving and is multiplied by the servings

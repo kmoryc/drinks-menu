@@ -1,7 +1,9 @@
-// Shared out-of-stock state, stored as stock.json in the GitHub repository.
+// Shared out-of-stock state, stored as stock.json in the separate
+// kmoryc/drinks-stock repository. Keeping it apart from the site means the
+// bartender's token can change stock but never the website code.
 // The guest page reads it; the bartender page reads and writes it.
 (function () {
-  const REPO = "kmoryc/drinks-menu";
+  const REPO = "kmoryc/drinks-stock";
   const BRANCH = "main";
   const FILE = "stock.json";
   // Commits made from the bartender page use the private no-reply address.
@@ -17,9 +19,11 @@
 
   const parse = (data) => new Set(Array.isArray(data && data.out) ? data.out : []);
 
+  const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${FILE}`;
+
   // The GitHub API returns the latest version immediately. Unauthenticated
-  // calls are rate limited per network, so fall back to the published copy
-  // (which lags about a minute behind) if the API refuses.
+  // calls are rate limited per network, so fall back to the raw file
+  // (cached by GitHub for up to a few minutes) if the API refuses.
   async function load() {
     const token = getToken();
     try {
@@ -27,7 +31,7 @@
       if (r.ok) return parse(await r.json());
     } catch (e) { /* fall through */ }
     try {
-      const r = await fetch(`${FILE}?t=${Date.now()}`, { cache: "no-store" });
+      const r = await fetch(`${RAW}?t=${Date.now()}`, { cache: "no-store" });
       if (r.ok) return parse(await r.json());
     } catch (e) { /* fall through */ }
     return null;
