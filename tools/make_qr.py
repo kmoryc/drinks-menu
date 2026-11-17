@@ -1,10 +1,12 @@
-"""Create a printable QR card that opens the drinks menu.
+"""Create printable QR cards for the drinks menu.
 
 Usage:
   .venv/bin/python tools/make_qr.py https://<user>.github.io/drinks-menu/
 
-Writes print/qr-card.png and print/qr-card.pdf (about 10 x 14 cm at 300 dpi),
-plus print/qr.png (QR code only).
+Writes two cards (about 10 x 14 cm at 300 dpi) to print/:
+  qr-card.png / qr-card.pdf    guest menu (index.html)
+  bar-card.png / bar-card.pdf  bartender recipes (bar.html)
+plus qr.png and bar-qr.png with just the QR codes.
 """
 import sys
 from pathlib import Path
@@ -35,20 +37,19 @@ def centered(draw, y, text, f, fill):
     draw.text(((W - w) / 2, y), text, font=f, fill=fill)
 
 
-def main(url):
-    OUT.mkdir(exist_ok=True)
+def make_card(url, name, title, subtitle, lines):
     qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=20, border=2)
     qr.add_data(url)
     qr.make(fit=True)
     code = qr.make_image(fill_color="black", back_color="white").convert("RGB")
-    code.save(OUT / "qr.png")
+    code.save(OUT / f"{name}.png")
 
     card = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(card)
     d.rounded_rectangle((30, 30, W - 30, H - 30), radius=50, outline=ACCENT, width=6)
 
-    centered(d, 110, "Drinks Menu", font(110, bold=True), ACCENT)
-    centered(d, 250, "Karta napojów", font(70, bold=True), FG)
+    centered(d, 110, title, font(110, bold=True), ACCENT)
+    centered(d, 250, subtitle, font(70, bold=True), FG)
 
     size = 780
     code = code.resize((size, size), Image.NEAREST)
@@ -57,13 +58,23 @@ def main(url):
     d.rounded_rectangle((x - pad, y - pad, x + size + pad, y + size + pad), radius=30, fill="white")
     card.paste(code, (x, y))
 
-    centered(d, 1270, "Scan me with your phone camera", font(48), FG)
-    centered(d, 1340, "Zeskanuj aparatem w telefonie", font(48), FG)
+    for i, line in enumerate(lines):
+        centered(d, 1270 + 70 * i, line, font(48), FG)
     centered(d, 1470, url.replace("https://", "").rstrip("/"), font(34), MUTED)
 
-    card.save(OUT / "qr-card.png", dpi=(DPI, DPI))
-    card.save(OUT / "qr-card.pdf", resolution=DPI)
-    print(f"Wrote {OUT/'qr-card.png'}, {OUT/'qr-card.pdf'}, {OUT/'qr.png'} -> {url}")
+    card_name = "qr-card" if name == "qr" else f"{name.removesuffix('-qr')}-card"
+    card.save(OUT / f"{card_name}.png", dpi=(DPI, DPI))
+    card.save(OUT / f"{card_name}.pdf", resolution=DPI)
+    print(f"Wrote {OUT / card_name}.png/.pdf -> {url}")
+
+
+def main(base):
+    base = base.rstrip("/") + "/"
+    OUT.mkdir(exist_ok=True)
+    make_card(base, "qr", "Drinks Menu", "Karta napojów",
+              ["Scan me with your phone camera", "Zeskanuj aparatem w telefonie"])
+    make_card(base + "bar.html", "bar-qr", "Bar", "Recipes · Przepisy",
+              ["Bartender recipes", "Przepisy dla barmana"])
 
 
 if __name__ == "__main__":
