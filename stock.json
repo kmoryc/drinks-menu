@@ -1,6 +1,3 @@
 {
-  "out": [
-    "gin-tonic",
-    "tea"
-  ]
+  "out": []
 }
