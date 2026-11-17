@@ -1,0 +1,178 @@
+:root {
+  --bg: #16110d;
+  --bg2: #221a14;
+  --card: #000000;
+  --text: #f3e9dc;
+  --muted: #b9a893;
+  --accent: #e0a458;
+  --alc: #c0566b;
+  --soft: #4fa98a;
+  --radius: 18px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 50% -200px, #3a2a1c 0%, transparent 70%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 18px 16px 12px;
+  text-align: center;
+  background: linear-gradient(var(--bg) 75%, transparent);
+}
+
+h1 {
+  margin: 8px 0 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  color: var(--accent);
+  letter-spacing: 0.5px;
+}
+
+.subtitle { margin: 0 0 14px; color: var(--muted); }
+
+.lang {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  gap: 4px;
+}
+
+.lang button, .filters button {
+  font: inherit;
+  border: 1px solid #4a3a2c;
+  background: var(--bg2);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.lang button { padding: 4px 8px; border-radius: 8px; font-size: 0.8rem; }
+
+.lang button[aria-pressed="true"],
+.filters button[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1b130c;
+  font-weight: 600;
+}
+
+.filters {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filters button { padding: 8px 14px; border-radius: 999px; }
+
+.menu {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 8px 16px 24px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: row;
+  min-height: 108px;
+}
+
+.photo {
+  position: relative;
+  flex: 0 0 42%;
+  max-width: 310px;
+  overflow: hidden;
+  background: #1d1611;
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left 30%;
+  display: block;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 50%;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.6) 45%, var(--card) 95%);
+  pointer-events: none;
+}
+
+@media (max-width: 500px) {
+  .photo { flex-basis: 36%; }
+  .photo::after { width: 22%; }
+  .photo img { object-position: 22% 30%; }
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px 12px;
+  align-self: center;
+  position: relative;
+  margin-left: -50px; /* overlap the dark end of the fade */
+}
+
+.body h2 { margin: 0 0 4px; font-size: 1.15rem; }
+
+.body p { margin: 6px 0 0; color: var(--muted); line-height: 1.35; font-size: 0.92rem; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+}
+
+.tag.alcoholic { color: var(--accent); }
+.tag.non-alcoholic { color: var(--soft); }
+
+.card.out { opacity: 0.5; }
+.card.out img { filter: grayscale(1); }
+
+.badge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  color: var(--text);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+}
+
+.empty { text-align: center; color: var(--muted); grid-column: 1 / -1; }
+
+.foot { text-align: center; color: var(--muted); padding: 8px 0 28px; }
+
+@media (max-width: 500px) {
+  .body { margin-left: -14px; }
+}
