@@ -13,7 +13,7 @@ window.DRINKS = [
   {
     id: "gin-tonic",
     category: "alcoholic",
-    image: "images/gin-tonic.svg",
+    image: "images/gin-tonic.jpg",
     available: true,
     name: { en: "Gin & Tonic", pl: "Gin z tonikiem" },
     description: {
@@ -47,7 +47,7 @@ window.DRINKS = [
   {
     id: "aperol-spritz",
     category: "alcoholic",
-    image: "images/aperol-spritz.svg",
+    image: "images/aperol-spritz.jpg",
     available: true,
     name: { en: "Aperol Spritz", pl: "Aperol Spritz" },
     description: {
@@ -80,9 +80,44 @@ window.DRINKS = [
     }
   },
   {
+    id: "limoncello-spritz",
+    category: "alcoholic",
+    image: "images/limoncello-spritz.jpg",
+    available: true,
+    name: { en: "Limoncello Spritz", pl: "Limoncello Spritz" },
+    description: {
+      en: "Limoncello, prosecco and soda with lemon and mint. Sweet, sunny and bubbly.",
+      pl: "Limoncello, prosecco i woda gazowana z cytryną i miętą. Słodki, słoneczny i musujący."
+    },
+    recipe: {
+      glass: { en: "Large wine glass", pl: "Duży kieliszek do wina" },
+      ingredients: [
+        { amount: 60, unit: "ml", en: "Limoncello, chilled", pl: "Limoncello, schłodzone" },
+        { amount: 90, unit: "ml", en: "Prosecco, chilled", pl: "Prosecco, schłodzone" },
+        { amount: 30, unit: "ml", en: "Soda water", pl: "Woda gazowana" },
+        { en: "Ice cubes", pl: "Kostki lodu" },
+        { amount: 1, en: "Lemon slice and mint sprig", pl: "Plasterek cytryny i gałązka mięty" }
+      ],
+      steps: {
+        en: [
+          "Fill the glass with ice.",
+          "Pour in the prosecco, then the limoncello.",
+          "Top up with soda water and stir gently once.",
+          "Garnish with a lemon slice and a mint sprig."
+        ],
+        pl: [
+          "Wypełnij kieliszek lodem.",
+          "Wlej prosecco, a potem limoncello.",
+          "Dolej wodę gazowaną i raz delikatnie zamieszaj.",
+          "Udekoruj plasterkiem cytryny i gałązką mięty."
+        ]
+      }
+    }
+  },
+  {
     id: "mojito",
     category: "alcoholic",
-    image: "images/mojito.svg",
+    image: "images/mojito.jpg",
     available: true,
     name: { en: "Mojito", pl: "Mojito" },
     description: {
@@ -121,9 +156,236 @@ window.DRINKS = [
     }
   },
   {
+    id: "daiquiri",
+    category: "alcoholic",
+    image: "images/daiquiri.jpg",
+    available: true,
+    name: { en: "Daiquiri", pl: "Daiquiri" },
+    description: {
+      en: "Classic Cuban sour: white rum, fresh lime and a touch of sugar, shaken ice cold.",
+      pl: "Klasyczny kubański sour: biały rum, świeża limonka i odrobina cukru, wstrząśnięte na lodzie."
+    },
+    recipe: {
+      glass: { en: "Coupe or martini glass, chilled", pl: "Kieliszek coupe lub martini, schłodzony" },
+      ingredients: [
+        { amount: 60, unit: "ml", en: "White rum", pl: "Biały rum" },
+        { amount: 25, unit: "ml", en: "Fresh lime juice", pl: "Świeży sok z limonki" },
+        { amount: 15, unit: "ml", en: "Sugar syrup", pl: "Syrop cukrowy" },
+        { en: "Ice cubes for shaking", pl: "Kostki lodu do shakera" },
+        { amount: 1, en: "Lime wheel", pl: "Plasterek limonki" }
+      ],
+      steps: {
+        en: [
+          "Chill the glass with ice or in the freezer.",
+          "Put the rum, lime juice and sugar syrup in a shaker with plenty of ice.",
+          "Shake hard for about 15 seconds.",
+          "Strain into the chilled glass.",
+          "Garnish with a lime wheel on the rim."
+        ],
+        pl: [
+          "Schłodź kieliszek lodem lub w zamrażarce.",
+          "Wlej rum, sok z limonki i syrop cukrowy do shakera z dużą ilością lodu.",
+          "Wstrząsaj mocno przez ok. 15 sekund.",
+          "Przecedź do schłodzonego kieliszka.",
+          "Udekoruj plasterkiem limonki na brzegu."
+        ]
+      }
+    }
+  },
+  {
+    id: "tequila-sunrise",
+    category: "alcoholic",
+    image: "images/tequila-sunrise.jpg",
+    available: true,
+    name: { en: "Tequila Sunrise", pl: "Tequila Sunrise" },
+    description: {
+      en: "Tequila and orange juice with grenadine sinking to the bottom like a sunrise.",
+      pl: "Tequila i sok pomarańczowy z grenadyną opadającą na dno jak wschód słońca."
+    },
+    recipe: {
+      glass: { en: "Highball glass", pl: "Szklanka typu highball" },
+      ingredients: [
+        { amount: 45, unit: "ml", en: "Tequila (blanco)", pl: "Tequila (blanco)" },
+        { amount: 90, unit: "ml", en: "Orange juice", pl: "Sok pomarańczowy" },
+        { amount: 15, unit: "ml", en: "Grenadine", pl: "Grenadyna" },
+        { en: "Ice cubes", pl: "Kostki lodu" },
+        { amount: 1, en: "Orange slice and cocktail cherry", pl: "Plasterek pomarańczy i wisienka koktajlowa" }
+      ],
+      steps: {
+        en: [
+          "Fill the glass with ice.",
+          "Pour in the tequila and orange juice and stir.",
+          "Slowly pour the grenadine down the inside of the glass so it sinks to the bottom. Do not stir.",
+          "Garnish with an orange slice and a cherry."
+        ],
+        pl: [
+          "Wypełnij szklankę lodem.",
+          "Wlej tequilę i sok pomarańczowy, zamieszaj.",
+          "Powoli wlej grenadynę po wewnętrznej ściance, żeby opadła na dno. Nie mieszaj.",
+          "Udekoruj plasterkiem pomarańczy i wisienką."
+        ]
+      }
+    }
+  },
+  {
+    id: "martini",
+    category: "alcoholic",
+    image: "images/martini.jpg",
+    available: true,
+    name: { en: "Martini", pl: "Martini" },
+    description: {
+      en: "Dry gin and a dash of vermouth, stirred ice cold and served with an olive.",
+      pl: "Wytrawny gin z odrobiną wermutu, mieszany na lodzie i podany z oliwką."
+    },
+    recipe: {
+      glass: { en: "Martini glass, chilled", pl: "Kieliszek do martini, schłodzony" },
+      ingredients: [
+        { amount: 60, unit: "ml", en: "Gin", pl: "Gin" },
+        { amount: 10, unit: "ml", en: "Dry vermouth", pl: "Wytrawny wermut" },
+        { en: "Ice cubes for stirring", pl: "Kostki lodu do mieszania" },
+        { amount: 1, en: "Olive on a pick or lemon twist", pl: "Oliwka na wykałaczce lub skórka cytryny" }
+      ],
+      steps: {
+        en: [
+          "Chill the glass with ice or in the freezer.",
+          "Put the gin and vermouth in a mixing glass full of ice.",
+          "Stir for about 30 seconds until very cold.",
+          "Strain into the chilled glass.",
+          "Garnish with an olive or a lemon twist."
+        ],
+        pl: [
+          "Schłodź kieliszek lodem lub w zamrażarce.",
+          "Wlej gin i wermut do szklanicy pełnej lodu.",
+          "Mieszaj ok. 30 sekund, aż będzie bardzo zimne.",
+          "Przecedź do schłodzonego kieliszka.",
+          "Udekoruj oliwką lub skórką cytryny."
+        ]
+      }
+    }
+  },
+  {
+    id: "dirty-martini",
+    category: "alcoholic",
+    image: "images/dirty-martini.jpg",
+    available: true,
+    name: { en: "Dirty Martini", pl: "Dirty Martini" },
+    description: {
+      en: "A martini with a splash of olive brine. Savoury, salty and smooth.",
+      pl: "Martini z dodatkiem zalewy z oliwek. Wytrawne, słone i gładkie."
+    },
+    recipe: {
+      glass: { en: "Martini glass, chilled", pl: "Kieliszek do martini, schłodzony" },
+      ingredients: [
+        { amount: 60, unit: "ml", en: "Gin or vodka", pl: "Gin lub wódka" },
+        { amount: 10, unit: "ml", en: "Dry vermouth", pl: "Wytrawny wermut" },
+        { amount: 15, unit: "ml", en: "Olive brine", pl: "Zalewa z oliwek" },
+        { en: "Ice cubes for stirring", pl: "Kostki lodu do mieszania" },
+        { amount: 3, en: "Green olives on a pick", pl: "Zielone oliwki na wykałaczce" }
+      ],
+      steps: {
+        en: [
+          "Chill the glass with ice or in the freezer.",
+          "Put the gin or vodka, vermouth and olive brine in a mixing glass full of ice.",
+          "Stir for about 30 seconds.",
+          "Strain into the chilled glass.",
+          "Garnish with the olives on a pick."
+        ],
+        pl: [
+          "Schłodź kieliszek lodem lub w zamrażarce.",
+          "Wlej gin lub wódkę, wermut i zalewę z oliwek do szklanicy pełnej lodu.",
+          "Mieszaj ok. 30 sekund.",
+          "Przecedź do schłodzonego kieliszka.",
+          "Udekoruj oliwkami na wykałaczce."
+        ]
+      }
+    }
+  },
+  {
+    id: "porn-star-martini",
+    category: "alcoholic",
+    image: "images/porn-star-martini.jpg",
+    available: true,
+    name: { en: "Pornstar Martini", pl: "Pornstar Martini" },
+    description: {
+      en: "Vanilla vodka and passion fruit, with a shot of prosecco on the side.",
+      pl: "Waniliowa wódka i marakuja, z kieliszkiem prosecco obok."
+    },
+    recipe: {
+      glass: { en: "Coupe or martini glass, plus a shot glass", pl: "Kieliszek coupe lub martini oraz kieliszek do shota" },
+      ingredients: [
+        { amount: 45, unit: "ml", en: "Vanilla vodka", pl: "Wódka waniliowa" },
+        { amount: 15, unit: "ml", en: "Passion fruit liqueur (e.g. Passoa)", pl: "Likier z marakui (np. Passoa)" },
+        { amount: 30, unit: "ml", en: "Passion fruit purée or juice", pl: "Puree lub sok z marakui" },
+        { amount: 15, unit: "ml", en: "Fresh lime juice", pl: "Świeży sok z limonki" },
+        { amount: 10, unit: "ml", en: "Vanilla syrup", pl: "Syrop waniliowy" },
+        { amount: 50, unit: "ml", en: "Prosecco, chilled", pl: "Prosecco, schłodzone" },
+        { en: "Ice cubes for shaking", pl: "Kostki lodu do shakera" },
+        { amount: 1, en: "Half a passion fruit", pl: "Połówka marakui" }
+      ],
+      steps: {
+        en: [
+          "Chill the glass.",
+          "Put everything except the prosecco in a shaker with ice.",
+          "Shake hard for about 15 seconds.",
+          "Strain into the chilled glass.",
+          "Float half a passion fruit on top.",
+          "Serve the prosecco in a shot glass on the side."
+        ],
+        pl: [
+          "Schłodź kieliszek.",
+          "Wlej wszystko oprócz prosecco do shakera z lodem.",
+          "Wstrząsaj mocno ok. 15 sekund.",
+          "Przecedź do schłodzonego kieliszka.",
+          "Połóż na wierzchu połówkę marakui.",
+          "Prosecco podaj obok w kieliszku do shota."
+        ]
+      }
+    }
+  },
+  {
+    id: "peanut-butter-cup-martini",
+    category: "alcoholic",
+    image: "images/peanut-butter-cup-martini.jpg",
+    available: true,
+    name: { en: "Peanut Butter Cup Martini", pl: "Martini Peanut Butter Cup" },
+    description: {
+      en: "Creamy dessert cocktail with chocolate and peanut butter, in a chocolate-swirled glass.",
+      pl: "Kremowy deserowy koktajl z czekoladą i masłem orzechowym, w kieliszku z czekoladowym sosem."
+    },
+    recipe: {
+      glass: { en: "Martini glass, chilled", pl: "Kieliszek do martini, schłodzony" },
+      ingredients: [
+        { amount: 30, unit: "ml", en: "Vanilla vodka", pl: "Wódka waniliowa" },
+        { amount: 30, unit: "ml", en: "Chocolate liqueur (crème de cacao)", pl: "Likier czekoladowy (crème de cacao)" },
+        { amount: 30, unit: "ml", en: "Irish cream (e.g. Baileys)", pl: "Likier kremowy (np. Baileys)" },
+        { amount: 1, unit: "tsp", en: "Smooth peanut butter", pl: "Gładkie masło orzechowe" },
+        { amount: 30, unit: "ml", en: "Milk or cream", pl: "Mleko lub śmietanka" },
+        { en: "Chocolate syrup", pl: "Sos czekoladowy" },
+        { en: "Ice cubes for shaking", pl: "Kostki lodu do shakera" },
+        { amount: 1, en: "Peanut butter cup", pl: "Czekoladka z masłem orzechowym (Reese's)" }
+      ],
+      steps: {
+        en: [
+          "Swirl chocolate syrup around the inside of the glass and chill it.",
+          "Put the vodka, liqueurs, peanut butter and milk in a shaker with ice.",
+          "Shake very hard for about 20 seconds so the peanut butter blends in.",
+          "Strain into the glass.",
+          "Garnish with a peanut butter cup on the rim."
+        ],
+        pl: [
+          "Rozprowadź sos czekoladowy po wnętrzu kieliszka i schłodź go.",
+          "Wlej wódkę, likiery, masło orzechowe i mleko do shakera z lodem.",
+          "Wstrząsaj bardzo mocno ok. 20 sekund, żeby masło orzechowe się połączyło.",
+          "Przecedź do kieliszka.",
+          "Udekoruj czekoladką z masłem orzechowym na brzegu."
+        ]
+      }
+    }
+  },
+  {
     id: "red-wine",
     category: "alcoholic",
-    image: "images/red-wine.svg",
+    image: "images/red-wine.jpg",
     available: true,
     name: { en: "Red wine", pl: "Czerwone wino" },
     description: {
@@ -150,9 +412,38 @@ window.DRINKS = [
     }
   },
   {
+    id: "white-wine",
+    category: "alcoholic",
+    image: "images/white-wine.jpg",
+    available: true,
+    name: { en: "White wine", pl: "Białe wino" },
+    description: {
+      en: "A chilled glass of dry white wine.",
+      pl: "Kieliszek schłodzonego wytrawnego białego wina."
+    },
+    recipe: {
+      glass: { en: "White wine glass", pl: "Kieliszek do białego wina" },
+      ingredients: [
+        { amount: 150, unit: "ml", en: "Dry white wine (8–10 °C)", pl: "Wytrawne białe wino (8–10 °C)" }
+      ],
+      steps: {
+        en: [
+          "Keep the bottle in the fridge, or put it in an ice bucket for 20 minutes.",
+          "Fill the glass to about one third.",
+          "Hold the glass by the stem so the wine stays cool."
+        ],
+        pl: [
+          "Trzymaj butelkę w lodówce albo włóż ją na 20 minut do wiaderka z lodem.",
+          "Nalej wino do około jednej trzeciej kieliszka.",
+          "Trzymaj kieliszek za nóżkę, żeby wino się nie ogrzało."
+        ]
+      }
+    }
+  },
+  {
     id: "beer",
     category: "alcoholic",
-    image: "images/beer.svg",
+    image: "images/beer.jpg",
     available: true,
     name: { en: "Beer", pl: "Piwo" },
     description: {
@@ -181,7 +472,7 @@ window.DRINKS = [
   {
     id: "guinness",
     category: "alcoholic",
-    image: "images/guinness.svg",
+    image: "images/guinness.jpg",
     available: true,
     name: { en: "Guinness", pl: "Guinness" },
     description: {
@@ -210,9 +501,42 @@ window.DRINKS = [
     }
   },
   {
+    id: "whisky",
+    category: "alcoholic",
+    image: "images/whisky.jpg",
+    available: true,
+    name: { en: "Whisky", pl: "Whisky" },
+    description: {
+      en: "Neat, with a drop of water, or on the rocks. Just tell me how you like it.",
+      pl: "Czysta, z kroplą wody lub z lodem. Powiedz, jak lubisz."
+    },
+    recipe: {
+      glass: { en: "Rocks glass (tumbler)", pl: "Szklanka typu old fashioned (tumbler)" },
+      ingredients: [
+        { amount: 50, unit: "ml", en: "Whisky", pl: "Whisky" },
+        { en: "Large ice cube (optional)", pl: "Duża kostka lodu (opcjonalnie)" },
+        { en: "A few drops of water (optional)", pl: "Kilka kropli wody (opcjonalnie)" }
+      ],
+      steps: {
+        en: [
+          "Ask whether the guest wants it neat, with water or on the rocks.",
+          "For on the rocks, put one large ice cube in the glass first.",
+          "Pour the whisky.",
+          "If asked, add a few drops of water."
+        ],
+        pl: [
+          "Zapytaj, czy gość woli czystą, z wodą czy z lodem.",
+          "Jeśli z lodem, najpierw włóż do szklanki jedną dużą kostkę lodu.",
+          "Nalej whisky.",
+          "Jeśli gość chce, dodaj kilka kropli wody."
+        ]
+      }
+    }
+  },
+  {
     id: "virgin-mojito",
     category: "non-alcoholic",
-    image: "images/virgin-mojito.svg",
+    image: "images/mojito.jpg",
     available: true,
     name: { en: "Virgin Mojito", pl: "Mojito bezalkoholowe" },
     description: {
@@ -250,7 +574,7 @@ window.DRINKS = [
   {
     id: "lemonade",
     category: "non-alcoholic",
-    image: "images/lemonade.svg",
+    image: "images/lemonade.jpg",
     available: true,
     name: { en: "Homemade lemonade", pl: "Domowa lemoniada" },
     description: {
@@ -288,7 +612,7 @@ window.DRINKS = [
   {
     id: "coffee",
     category: "non-alcoholic",
-    image: "images/coffee.svg",
+    image: "images/coffee.jpg",
     available: true,
     name: { en: "Coffee", pl: "Kawa" },
     description: {
@@ -322,7 +646,7 @@ window.DRINKS = [
   {
     id: "tea",
     category: "non-alcoholic",
-    image: "images/tea.svg",
+    image: "images/tea.jpg",
     available: true,
     name: { en: "Tea", pl: "Herbata" },
     description: {
@@ -358,7 +682,7 @@ window.DRINKS = [
   {
     id: "sparkling-water",
     category: "non-alcoholic",
-    image: "images/sparkling-water.svg",
+    image: "images/sparkling-water.jpg",
     available: true,
     name: { en: "Sparkling water", pl: "Woda gazowana" },
     description: {
