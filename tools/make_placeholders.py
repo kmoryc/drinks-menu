@@ -70,6 +70,16 @@ def beer():
             + bubbles([(170, 200, 4), (210, 170, 3), (230, 230, 4), (190, 140, 3)]))
 
 
+def stout():
+    # Tulip pint glass: narrow base, slight bulge near the top.
+    glass = "M158 265 L148 120 C144 95 146 80 150 62 L250 62 C254 80 256 95 252 120 L242 265 Z"
+    return (f'<path d="{glass}" {GLASS}/>'
+            '<path d="M161 261 L152 120 C149 102 150 92 152 92 L248 92 C250 92 251 102 248 120 L239 261 Z" fill="#1a0e08"/>'
+            '<path d="M152 92 C150 80 151 72 153 66 L247 66 C249 72 250 80 248 92 Z" fill="#f1e3c6"/>'
+            '<path d="M152 92 L248 92" stroke="#c9a77a" stroke-width="3"/>'
+            '<path d="M175 110 L170 240" stroke="#5a3a22" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/>')
+
+
 def coupe_icon():
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
             '<rect width="64" height="64" rx="14" fill="#16110d"/>'
@@ -85,6 +95,7 @@ IMAGES = {
     "virgin-mojito": frame("#1f3a3a", "#0c1818", highball("#d9f7e8", mint() + lime(250, 75) + bubbles([(185, 230, 3), (215, 205, 4)]))),
     "red-wine": frame("#3a1a22", "#14080b", wine("#7b1028")),
     "beer": frame("#3e2f12", "#161006", beer()),
+    "guinness": frame("#2a2118", "#0f0b08", stout()),
     "lemonade": frame("#3d3a14", "#151406", highball("#fff3a0", '<circle cx="250" cy="75" r="26" fill="#fdd835"/><circle cx="250" cy="75" r="20" fill="#fff59d"/>')),
     "coffee": frame("#3b2a1e", "#140d08", mug("#4e2c16")),
     "tea": frame("#3b331e", "#141008", mug("#b5651d") + '<path d="M262 95v40" stroke="#ccc" stroke-width="2"/><rect x="254" y="135" width="16" height="20" fill="#c62828"/>'),

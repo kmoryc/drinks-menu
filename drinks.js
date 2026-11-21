@@ -179,6 +179,37 @@ window.DRINKS = [
     }
   },
   {
+    id: "guinness",
+    category: "alcoholic",
+    image: "images/guinness.svg",
+    available: true,
+    name: { en: "Guinness", pl: "Guinness" },
+    description: {
+      en: "Irish dry stout, dark and smooth with a creamy head.",
+      pl: "Irlandzki stout, ciemny i gładki, z kremową pianką."
+    },
+    recipe: {
+      glass: { en: "Pint glass (tulip) or a large beer glass", pl: "Szklanka typu pint (tulipan) lub duża szklanka do piwa" },
+      ingredients: [
+        { amount: 440, unit: "ml", en: "Guinness Draught (can with widget), chilled", pl: "Guinness Draught (puszka z widgetem), schłodzony" }
+      ],
+      steps: {
+        en: [
+          "Open the can and wait a moment for the widget to release.",
+          "Hold the glass at 45° and pour the whole can in one go.",
+          "Straighten the glass towards the end of the pour.",
+          "Let it settle for about 1–2 minutes until the beer turns dark and the head is creamy, then serve."
+        ],
+        pl: [
+          "Otwórz puszkę i odczekaj chwilę, aż zadziała widget.",
+          "Trzymaj szklankę pod kątem 45° i wlej całą puszkę za jednym razem.",
+          "Pod koniec nalewania wyprostuj szklankę.",
+          "Odstaw na ok. 1–2 minuty, aż piwo ściemnieje, a piana będzie kremowa, potem podaj."
+        ]
+      }
+    }
+  },
+  {
     id: "virgin-mojito",
     category: "non-alcoholic",
     image: "images/virgin-mojito.svg",
