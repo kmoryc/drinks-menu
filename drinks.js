@@ -115,6 +115,42 @@ window.DRINKS = [
     }
   },
   {
+    id: "hugo-spritz",
+    category: "alcoholic",
+    image: "images/hugo-spritz.jpg",
+    available: true,
+    name: { en: "Hugo Spritz", pl: "Hugo Spritz" },
+    description: {
+      en: "Prosecco with elderflower, fresh mint and lime. Light, floral and refreshing.",
+      pl: "Prosecco z kwiatem czarnego bzu, świeżą miętą i limonką. Lekki, kwiatowy i orzeźwiający."
+    },
+    recipe: {
+      glass: { en: "Large wine glass", pl: "Duży kieliszek do wina" },
+      ingredients: [
+        { amount: 20, unit: "ml", en: "Elderflower syrup (or 30 ml elderflower liqueur)", pl: "Syrop z kwiatów czarnego bzu (lub 30 ml likieru z czarnego bzu)" },
+        { amount: 100, unit: "ml", en: "Prosecco, chilled", pl: "Prosecco, schłodzone" },
+        { amount: 30, unit: "ml", en: "Soda water", pl: "Woda gazowana" },
+        { amount: 6, en: "Mint leaves", pl: "Listki mięty" },
+        { amount: 2, en: "Lime wedges", pl: "Ćwiartki limonki" },
+        { en: "Ice cubes", pl: "Kostki lodu" }
+      ],
+      steps: {
+        en: [
+          "Put the mint leaves and lime wedges in the glass and press them lightly.",
+          "Add the elderflower syrup and fill the glass with ice.",
+          "Pour in the prosecco, then top up with soda water.",
+          "Stir gently once and garnish with a mint sprig."
+        ],
+        pl: [
+          "Włóż do kieliszka listki mięty i ćwiartki limonki, lekko je ugnieć.",
+          "Dodaj syrop z czarnego bzu i wypełnij kieliszek lodem.",
+          "Wlej prosecco, a potem dolej wodę gazowaną.",
+          "Raz delikatnie zamieszaj i udekoruj gałązką mięty."
+        ]
+      }
+    }
+  },
+  {
     id: "mojito",
     category: "alcoholic",
     image: "images/mojito.jpg",
