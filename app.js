@@ -1,8 +1,8 @@
 (function () {
   const TEXT = {
     en: {
-      title: "Drinks Menu",
-      subtitle: "Pick something you like and just tell me 🍹",
+      title: "Karol's Bar",
+      subtitle: "Pick something you like",
       all: "All",
       alcoholic: "Alcoholic",
       "non-alcoholic": "Non-alcoholic",
@@ -11,8 +11,8 @@
       footer: "Cheers! 🥂"
     },
     pl: {
-      title: "Karta napojów",
-      subtitle: "Wybierz coś dla siebie i po prostu mi powiedz 🍹",
+      title: "Bar u Karola",
+      subtitle: "Wybierz coś dla siebie",
       all: "Wszystkie",
       alcoholic: "Alkoholowe",
       "non-alcoholic": "Bezalkoholowe",
